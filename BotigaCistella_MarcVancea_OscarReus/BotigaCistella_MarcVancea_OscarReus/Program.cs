@@ -1,6 +1,6 @@
-﻿namespace BotigaCistella_MarcVancea_OscarReus
+namespace BotigaCistella_MarcVancea_OscarReus
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -18,18 +18,28 @@
                 case "1":
                     // Gestionar botiga
                     Console.WriteLine("Has seleccionat gestionar la botiga.");
-
-                    while (opcio != "4")
+                    string opcioBotiga = 1;
+                    while (opcioBotiga != "0")
                     {
                         Console.WriteLine("1. Afegir producte");
-                        Console.WriteLine("2. Eliminar producte");
-                        Console.WriteLine("3. Veure productes");
-                        Console.WriteLine("4. Tornar al menú principal");
+                        Console.WriteLine("2. Afegir producte[]");
+                        Console.WriteLine("3. Eliminar producte");
+                        Console.WriteLine("4. Ampliar botiga");
+                        Console.WriteLine("5. Modificar preu");
+                        Console.WriteLine("6. Buscar producte");
+                        Console.WriteLine("7. Modificar producte");
+                        Console.WriteLine("8. Ordenar producte");
+                        Console.WriteLine("9. Ordenar preus");
+                        Console.WriteLine("10. Veure productes");
+                        Console.WriteLine("0. Tornar al menú principal");
                         Console.Write("Selecciona una opció: ");
-                        string opcioBotiga = Console.ReadLine();
+                        opcioBotiga = Console.ReadLine();
 
                         switch (opcioBotiga)
                         {
+                            case "0":
+                                // Tornar al menú principal
+                                break;
                             case "1":
                                 // Afegir producte
                                 Console.Write("Introdueix el nom del producte: ");
@@ -38,27 +48,88 @@
                                 double preuProducte = Convert.ToDouble(Console.ReadLine());
                                 Producte producte = new Producte(nomProducte, preuProducte);
                                 botiga.AfegirProducte(producte);
-                                Console.WriteLine("Producte afegit amb èxit.");
+                                if (botiga.AfegirProducte(producte))
+                                    Console.WriteLine("Producte afegit amb èxit.");
+                                else
+                                    Console.WriteLine("El producte no se a afegit correctament.");
                                 break;
                             case "2":
+                                // Afegir producte Array
+                                Producte[] producteArray;
+                                for (int i = 0; i < botiga.Producte.Length; i++)
+                                {
+                                    Console.Write("Introdueix el nom del producte: ");
+                                    string nomProducte = Console.ReadLine();
+                                    Console.Write("Introdueix el preu del producte: ");
+                                    double preuProducte = Convert.ToDouble(Console.ReadLine());
+                                    producteArray = new Producte(nomProducte, preuProducte);
+                                }
+                                if (botiga.AfegirProducte(producteArray))
+                                    Console.WriteLine("Producte afegit amb èxit.");
+                                else
+                                    Console.WriteLine("El producte no se a afegit correctament.");
+                            case "3":
                                 // Eliminar producte
                                 Console.Write("Introdueix el nom del producte a eliminar: ");
                                 string nomProducteEliminar = Console.ReadLine();
-                                botiga.EliminarProducte(nomProducteEliminar);
+                                Console.Write("Introdueix el preu del producte: ");
+                                double preuProducteEliminar = Convert.ToDouble(Console.ReadLine());
+                                Producte producteEliminar = new Producte(nomProducteEliminar, preuProducteEliminar);
+                                botiga.EsborrarProducte(producteEliminar);
                                 Console.WriteLine("Producte eliminat amb èxit.");
                                 break;
-                            case "3":
+                            case "4":
+                                // Ampliar botiga
+                                Console.WriteLine("Quant vols ampliar la botiga: ");
+                                int ampliarBotiga = Convert.ToInt32(Console.ReadLine());
+                                botiga.AmpliarBotiga(ampliarBotiga);
+                                break;
+                            case "5":
+                                // Modifcar preu
+                                Console.WriteLine("Escriu el nom del producte per modificar el preu: ");
+                                string nomProducteModificar = Console.ReadLine();
+                                Console.WriteLine("Quin preu li vols posar: ");
+                                double preuProducteModificar = Convert.ToDouble(Console.ReadLine());
+                                Console.WriteLine(botiga.ModificarPreu(nomProducteModificar, preuProducteModificar));
+                                break;
+                            case "6":
+                                // Buscar producte
+                                Console.WriteLine("Escriu el nom del producte: ");
+                                string nomProducteBuscar = Console.ReadLine();
+                                Console.WriteLine("Escriu un preu: ");
+                                double preuProducteBuscar = Convert.ToDouble(Console.ReadLine());
+                                Producte buscar = new Producte(nomProducteBuscar, preuProducteBuscar);
+                                Console.WriteLine(botiga.BuscarProducte(buscar));
+                                break;
+                            case "7":
+                                // Modifcar producte
+                                Console.WriteLine("Nom del producte que vols modificar: ");
+                                string nomProducteModifcar = Console.ReadLine();
+                                Console.Write("Preu del producte que vols modificar: ");
+                                double preuProducteModificar = Convert.ToDouble(Console.ReadLine());
+                                Producte producteModificar = new Producte(nomProducteModifcar, preuProducteModificar);
+                                Console.WriteLine("Nom que vols posar-li al nou producte: ");
+                                string nomProducteNou = Console.ReadLine();
+                                Console.WriteLine("Preu que vols posar-li al nou producte: ");
+                                double preuProducteNou = Convert.ToDouble(Console.ReadLine());
+                                Console.WriteLine("Stock: ");
+                                int stock = Convert.ToInt32(Console.ReadLine());
+                                Console.WriteLine(botiga.ModificarProducte(producteModificar, nomProducteNou, preuProducteNou, stock));
+                                break;
+                            case "8":
+                                // Ordenar producte
+                                botiga.OrdenarProducte();
+                                break;
+                            case "9":
+                                // Ordenar preus
+                                botiga.OrdenarPreus();
+                                break;
+                            case "10":
                                 // Veure productes
                                 Console.WriteLine("Productos disponibles:");
-                                for (int i = 0; i < botiga.ObtenirProductes().Length; i++)
-                                {
-                                    Producte p = botiga.ObtenirProductes()[i];
-                                    Console.WriteLine(p.ObtenirNom() + ": " + p.ObtenirPreu());
-                                }
+                                botiga.Mostrar();
                                 break;
-                            case "4":
-                                // Tornar al menú principal
-                                break;
+
                             default:
                                 Console.WriteLine("Opció no reconeguda. Si us plau, torna a intentar-ho.");
                                 break;
