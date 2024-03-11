@@ -4,12 +4,9 @@
     {
         static void Main(string[] args)
         {
-<<<<<<< HEAD
 <<<<<<< Updated upstream
             Console.WriteLine("Hello, World!");
 =======
-=======
->>>>>>> 92bba535f517963aba29eeee68b50b08d875007b
             Botiga botiga = new Botiga();
             Cistella cistella = new Cistella();
 
@@ -24,7 +21,6 @@
                 case "1":
                     // Gestionar botiga
                     Console.WriteLine("Has seleccionat gestionar la botiga.");
-<<<<<<< HEAD
                     string opcioBotiga = 1;
                     while (opcioBotiga != "0")
                     {
@@ -47,20 +43,6 @@
                             case "0":
                                 // Tornar al menú principal
                                 break;
-=======
-
-                    while (opcio != "4")
-                    {
-                        Console.WriteLine("1. Afegir producte");
-                        Console.WriteLine("2. Eliminar producte");
-                        Console.WriteLine("3. Veure productes");
-                        Console.WriteLine("4. Tornar al menú principal");
-                        Console.Write("Selecciona una opció: ");
-                        string opcioBotiga = Console.ReadLine();
-
-                        switch (opcioBotiga)
-                        {
->>>>>>> 92bba535f517963aba29eeee68b50b08d875007b
                             case "1":
                                 // Afegir producte
                                 Console.Write("Introdueix el nom del producte: ");
@@ -69,7 +51,6 @@
                                 double preuProducte = Convert.ToDouble(Console.ReadLine());
                                 Producte producte = new Producte(nomProducte, preuProducte);
                                 botiga.AfegirProducte(producte);
-<<<<<<< HEAD
                                 if (botiga.AfegirProducte(producte))
                                     Console.WriteLine("Producte afegit amb èxit.");
                                 else
@@ -152,29 +133,6 @@
                                 botiga.Mostrar();
                                 break;
 
-=======
-                                Console.WriteLine("Producte afegit amb èxit.");
-                                break;
-                            case "2":
-                                // Eliminar producte
-                                Console.Write("Introdueix el nom del producte a eliminar: ");
-                                string nomProducteEliminar = Console.ReadLine();
-                                botiga.EliminarProducte(nomProducteEliminar);
-                                Console.WriteLine("Producte eliminat amb èxit.");
-                                break;
-                            case "3":
-                                // Veure productes
-                                Console.WriteLine("Productos disponibles:");
-                                for (int i = 0; i < botiga.ObtenirProductes().Length; i++)
-                                {
-                                    Producte p = botiga.ObtenirProductes()[i];
-                                    Console.WriteLine(p.ObtenirNom() + ": " + p.ObtenirPreu());
-                                }
-                                break;
-                            case "4":
-                                // Tornar al menú principal
-                                break;
->>>>>>> 92bba535f517963aba29eeee68b50b08d875007b
                             default:
                                 Console.WriteLine("Opció no reconeguda. Si us plau, torna a intentar-ho.");
                                 break;
@@ -213,10 +171,7 @@
                     Console.WriteLine("Opció no reconeguda. Si us plau, torna a intentar-ho.");
                     break;
             }
-<<<<<<< HEAD
 >>>>>>> Stashed changes
-=======
->>>>>>> 92bba535f517963aba29eeee68b50b08d875007b
         }
     }
 }
