@@ -4,7 +4,6 @@ namespace BotigaCistella_MarcVancea_OscarReus
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
             Botiga botiga = new Botiga();
             Cistella cistella = new Cistella();
 
