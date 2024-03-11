@@ -1,12 +1,10 @@
-﻿namespace BotigaCistella_MarcVancea_OscarReus
+namespace BotigaCistella_MarcVancea_OscarReus
 {
     public class Program
     {
         static void Main(string[] args)
         {
-<<<<<<< Updated upstream
             Console.WriteLine("Hello, World!");
-=======
             Botiga botiga = new Botiga();
             Cistella cistella = new Cistella();
 
@@ -171,7 +169,6 @@
                     Console.WriteLine("Opció no reconeguda. Si us plau, torna a intentar-ho.");
                     break;
             }
->>>>>>> Stashed changes
         }
     }
 }
