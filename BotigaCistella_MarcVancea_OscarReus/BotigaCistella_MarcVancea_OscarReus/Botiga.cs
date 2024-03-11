@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BotigaCistella_MarcVancea_OscarReus
 {
-    internal class Botiga
+    public class Botiga
     {
         // Atributs
         private string nomBotiga;
@@ -50,10 +50,12 @@ namespace BotigaCistella_MarcVancea_OscarReus
             get { return nomBotiga; }
             set { nomBotiga = value; }
         }
-        public Producte Producte
+        public Producte[] Producte
         {
+            
             get { return productes; }
-            set { productes = value; }
+            set { for (int i = 0; i < productes.Length; i++)
+                    productes[i] = value; }
         }
         public int NElem
         {
@@ -132,7 +134,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
         /// </summary>
         /// <param name="producte">Se le pasa una array con la clase producte</param>
         /// <returns>Devuelve un true si añade todos los valores, devuelve un false si no lo a podido añadir</returns>
-        public void AfegirProducte(Producte[] producte)
+        public bool AfegirProducte(Producte[] producte)
         {
             for (int i = 0; i < producte.Length; i++)
             {
@@ -296,9 +298,10 @@ namespace BotigaCistella_MarcVancea_OscarReus
         /// <returns>Devuelve todos los datos separados por intros</returns>
         public override string ToString()
         {
+            string datos = "";
             for (int i = 0; i < nElem; i++)
             {
-                string datos =+ $"Producte: {productes[i].Nom}, Preu sense iva: {productes[i].Preu_Sense_Iva} " +
+                datos += $"Producte: {productes[i].Nom}, Preu sense iva: {productes[i].Preu_Sense_Iva} " +
                                   $"Preu amb iva: {productes[i].Preu()} IVA total: {productes[i].Iva}\n";
             }
             return datos;
