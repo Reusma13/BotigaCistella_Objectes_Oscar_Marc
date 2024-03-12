@@ -160,11 +160,9 @@ namespace BotigaCistella_MarcVancea_OscarReus
                                     Console.ReadLine();
                                     break;
 
-                                default:
-                                    Console.WriteLine("Opció no reconeguda. Si us plau, torna a intentar-ho.");
-                                    Console.ReadLine();
-                                    break;
-                            }
+                            default:
+                                Console.WriteLine("Opció no reconeguda. Si us plau, torna a intentar-ho.");
+                                break;
                         }
                         break;
                     case "2":
