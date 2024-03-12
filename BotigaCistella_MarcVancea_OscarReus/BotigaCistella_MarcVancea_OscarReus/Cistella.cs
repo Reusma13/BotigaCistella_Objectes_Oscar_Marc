@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 namespace BotigaCistella_MarcVancea_OscarReus
 {
 	public class Cistella
@@ -210,7 +210,8 @@ namespace BotigaCistella_MarcVancea_OscarReus
                 for (int j = 0; j < nElements - i - 1; j++)
                 {
                     // Comprova si el producte actual és major que el següent
-                    if (productes[j].Nom.CompareTo(productes[j + 1].Nom) > 0)
+                    if (productes[j].Nom().CompareTo(productes[j + 1].Nom()) > 0)
+
                     {
                         // Intercanvia els productes
                         Producte tempProducte = productes[j];

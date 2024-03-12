@@ -123,16 +123,21 @@ namespace BotigaCistella_MarcVancea_OscarReus
                                 case "7":
                                     // Modifcar producte
                                     Console.WriteLine("Nom del producte que vols modificar: ");
-                                    string nomProducteModifcar = Console.ReadLine();
+                                    string nomProducteModifcar2 = Console.ReadLine();
                                     Console.Write("Preu del producte que vols modificar: ");
                                     double preuProducteModificar2 = Convert.ToDouble(Console.ReadLine());
+<<<<<<< Updated upstream
                                     Producte producteModificar = new Producte(nomProducteModifcar, preuProducteModificar2);
+=======
+                                    Producte producteModificar2 = new Producte(nomProducteModifcar2, preuProducteModificar2);
+>>>>>>> Stashed changes
                                     Console.WriteLine("Nom que vols posar-li al nou producte: ");
                                     string nomProducteNou = Console.ReadLine();
                                     Console.WriteLine("Preu que vols posar-li al nou producte: ");
                                     double preuProducteNou = Convert.ToDouble(Console.ReadLine());
                                     Console.WriteLine("Stock: ");
                                     int stock = Convert.ToInt32(Console.ReadLine());
+<<<<<<< Updated upstream
                                     if (botiga.ModificarProducte(producteModificar, nomProducteNou, preuProducteNou, stock))
                                     {
                                         Console.WriteLine("Producte modificat amb exit.");
@@ -140,6 +145,9 @@ namespace BotigaCistella_MarcVancea_OscarReus
                                     else
                                         Console.WriteLine("El producte no s'ha pogut modificar");
                                     Console.ReadLine();
+=======
+                                    Console.WriteLine(botiga.ModificarProducte(producteModificar2, nomProducteNou, preuProducteNou, stock));
+>>>>>>> Stashed changes
                                     break;
                                 case "8":
                                     // Ordenar producte
@@ -167,7 +175,10 @@ namespace BotigaCistella_MarcVancea_OscarReus
                         break;
                     case "2":
                         Console.WriteLine("Has seleccionat fer una compra.");
+<<<<<<< Updated upstream
                         botiga.Mostrar();
+=======
+>>>>>>> Stashed changes
                         Console.Write("Selecciona un producto: ");
                         string nomProducte2 = Console.ReadLine();
                         Console.Write("Introdueix la quantitat que vols comprar: ");
