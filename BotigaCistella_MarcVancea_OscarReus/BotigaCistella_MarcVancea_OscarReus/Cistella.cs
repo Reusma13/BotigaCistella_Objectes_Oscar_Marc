@@ -114,6 +114,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
         {
             // Comprova si el producte existeix a la botiga
             if (!botiga.BuscarProducte(producte))
+
             {
                 Console.WriteLine("El producte no existeix a la botiga.");
                 return false;
@@ -165,6 +166,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
             {
                 // Comprova si el producte existeix a la botiga
                 if (!botiga.BuscarProducte(productes[i])) 
+
                 {
                     Console.WriteLine("El producte " + productes[i].Nom + " no existeix a la botiga.");
                     return false;
@@ -256,6 +258,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
         public double CostTotal()
         {
             double total = 0;
+
             for (int i = 0; i < nElements; i++)
             {
                 total += productes[i].Preu() * quantitat[i];
@@ -276,6 +279,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
 
             tiquet += "TIQUET DE COMPRA\n";
             tiquet += "Botiga: " + botiga.NomBotiga + "\n";
+
             tiquet += "Data: " + data.ToString() + "\n";
 
             double total = 0;
@@ -289,6 +293,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
             }
             for (int i = 0; i < nElements; i++)
                 total += productes[i].Preu() * quantitat[i];
+
             tiquet += "Total amb IVA inclòs: " + total + "\n";
 
             return tiquet;
