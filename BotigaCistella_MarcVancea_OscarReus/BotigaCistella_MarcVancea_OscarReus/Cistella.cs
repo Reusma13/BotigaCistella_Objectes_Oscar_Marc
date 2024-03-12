@@ -210,8 +210,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
                 for (int j = 0; j < nElements - i - 1; j++)
                 {
                     // Comprova si el producte actual és major que el següent
-                    if (productes[j].Nom().CompareTo(productes[j + 1].Nom()) > 0)
-
+                    if (productes[j].Nom.CompareTo(productes[j + 1].Nom) > 0)
                     {
                         // Intercanvia els productes
                         Producte tempProducte = productes[j];
@@ -258,7 +257,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
         /// <returns>retorna el total del cost total de la cistella</returns>
         public double CostTotal()
         {
-            double total = 0m;
+            double total = 0;
 
             for (int i = 0; i < nElements; i++)
             {
@@ -279,7 +278,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
             string tiquet = "";
 
             tiquet += "TIQUET DE COMPRA\n";
-            tiquet += "Botiga: " + botiga.NomBotiga() + "\n";
+            tiquet += "Botiga: " + botiga.NomBotiga + "\n";
 
             tiquet += "Data: " + data.ToString() + "\n";
 
