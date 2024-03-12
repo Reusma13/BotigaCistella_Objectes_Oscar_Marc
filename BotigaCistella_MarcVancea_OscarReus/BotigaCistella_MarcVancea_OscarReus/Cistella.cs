@@ -127,7 +127,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
             }
 
             // Comprova si hi ha suficients diners per comprar el producte
-            if (producte.Preu * quantitat > diners)
+            if (producte.Preu() * quantitat > diners)
             {
                 Console.WriteLine("No teniu suficients diners per comprar aquest producte. Voleu ingressar més diners?");
                 return false;
@@ -188,7 +188,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
                 this.productes[nElements] = productes[i];
                 this.quantitat[nElements] = quantitats[i];
                 this.nElements++;
-                this.diners -= productes[i].Preu * quantitats[i];
+                this.diners -= productes[i].Preu() * quantitats[i];
 
                 // Modificar la data
                 this.data = DateTime.Now;
@@ -208,7 +208,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
                 for (int j = 0; j < nElements - i - 1; j++)
                 {
                     // Comprova si el producte actual és major que el següent
-                    if (productes[j].Nom().CompareTo(productes[j + 1].Nom()) > 0)
+                    if (productes[j].Nom.CompareTo(productes[j + 1].Nom) > 0)
                     {
                         // Intercanvia els productes
                         Producte tempProducte = productes[j];
@@ -255,13 +255,13 @@ namespace BotigaCistella_MarcVancea_OscarReus
         /// <returns>retorna el total del cost total de la cistella</returns>
         public double CostTotal()
         {
-            double total = 0m;
+            double total = 0;
             for (int i = 0; i < nElements; i++)
             {
                 total += productes[i].Preu() * quantitat[i];
             }
 
-            total *= 1.21m;
+            total *= 1.21;
 
             return total;
         }
@@ -275,7 +275,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
             string tiquet = "";
 
             tiquet += "TIQUET DE COMPRA\n";
-            tiquet += "Botiga: " + botiga.NomBotiga() + "\n";
+            tiquet += "Botiga: " + botiga.NomBotiga + "\n";
             tiquet += "Data: " + data.ToString() + "\n";
 
             double total = 0;
