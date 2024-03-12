@@ -9,6 +9,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
             string opcio = "1";
             while (opcio != "3")
             {
+                Console.Clear();
                 Console.WriteLine("1. Gestionar botiga");
                 Console.WriteLine("2. Fer una compra");
                 Console.WriteLine("3. Sortir");
@@ -23,6 +24,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
                         string opcioBotiga = "1";
                         while (opcioBotiga != "0")
                         {
+                            Console.Clear();
                             Console.WriteLine("1. Afegir producte");
                             Console.WriteLine("2. Afegir producte[]");
                             Console.WriteLine("3. Eliminar producte");
@@ -49,29 +51,32 @@ namespace BotigaCistella_MarcVancea_OscarReus
                                     Console.Write("Introdueix el preu del producte: ");
                                     double preuProducte = Convert.ToDouble(Console.ReadLine());
                                     Producte producte = new Producte(nomProducte, preuProducte);
-                                    botiga.AfegirProducte(producte);
                                     if (botiga.AfegirProducte(producte))
                                         Console.WriteLine("Producte afegit amb èxit.");
                                     else
                                         Console.WriteLine("El producte no se a afegit correctament.");
+                                    Console.ReadLine();
                                     break;
                                 case "2":
                                     // Afegir producte Array
-                                    Producte[] producteArray;
+                                    
                                     Console.WriteLine("Quants productes vols afegir? ");
                                     int numeroProducte = Convert.ToInt32(Console.ReadLine());
+                                    Producte[] producteArray = new Producte[numeroProducte];
                                     for (int i = 0; i < numeroProducte; i++)
                                     {
                                         Console.Write("Introdueix el nom del producte: ");
                                         string nomProducteArray = Console.ReadLine();
                                         Console.Write("Introdueix el preu del producte: ");
                                         double preuProducteArray = Convert.ToDouble(Console.ReadLine());
-                                        producteArray = new Producte(nomProducteArray, preuProducteArray);
+                                        Producte producte1 = new Producte(nomProducteArray, preuProducteArray);
+                                        producteArray[i] = producte1;
                                     }
                                     if (botiga.AfegirProducte(producteArray))
                                         Console.WriteLine("Producte afegit amb èxit.");
                                     else
                                         Console.WriteLine("El producte no se a afegit correctament.");
+                                    Console.ReadLine();
                                     break;
                                 case "3":
                                     // Eliminar producte
@@ -82,12 +87,14 @@ namespace BotigaCistella_MarcVancea_OscarReus
                                     Producte producteEliminar = new Producte(nomProducteEliminar, preuProducteEliminar);
                                     botiga.EsborrarProducte(producteEliminar);
                                     Console.WriteLine("Producte eliminat amb èxit.");
+                                    Console.ReadLine();
                                     break;
                                 case "4":
                                     // Ampliar botiga
                                     Console.WriteLine("Quant vols ampliar la botiga: ");
                                     int ampliarBotiga = Convert.ToInt32(Console.ReadLine());
                                     botiga.AmpliarBotiga(ampliarBotiga);
+                                    Console.ReadLine();
                                     break;
                                 case "5":
                                     // Modifcar preu
@@ -96,6 +103,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
                                     Console.WriteLine("Quin preu li vols posar: ");
                                     double preuProducteModificar = Convert.ToDouble(Console.ReadLine());
                                     Console.WriteLine(botiga.ModificarPreu(nomProducteModificar, preuProducteModificar));
+                                    Console.ReadLine();
                                     break;
                                 case "6":
                                     // Buscar producte
@@ -104,50 +112,62 @@ namespace BotigaCistella_MarcVancea_OscarReus
                                     Console.WriteLine("Escriu un preu: ");
                                     double preuProducteBuscar = Convert.ToDouble(Console.ReadLine());
                                     Producte buscar = new Producte(nomProducteBuscar, preuProducteBuscar);
-                                    Console.WriteLine(botiga.BuscarProducte(buscar));
+                                    if(botiga.BuscarProducte(buscar))
+                                    {
+                                        Console.WriteLine("Producte trobat");
+                                    }
+                                    else
+                                        Console.WriteLine("producte no trobat");
+                                    Console.ReadLine();
                                     break;
                                 case "7":
                                     // Modifcar producte
                                     Console.WriteLine("Nom del producte que vols modificar: ");
                                     string nomProducteModifcar = Console.ReadLine();
                                     Console.Write("Preu del producte que vols modificar: ");
-                                    double preuProducteModificar = Convert.ToDouble(Console.ReadLine());
-                                    Producte producteModificar = new Producte(nomProducteModifcar, preuProducteModificar);
+                                    double preuProducteModificar2 = Convert.ToDouble(Console.ReadLine());
+                                    Producte producteModificar = new Producte(nomProducteModifcar, preuProducteModificar2);
                                     Console.WriteLine("Nom que vols posar-li al nou producte: ");
                                     string nomProducteNou = Console.ReadLine();
                                     Console.WriteLine("Preu que vols posar-li al nou producte: ");
                                     double preuProducteNou = Convert.ToDouble(Console.ReadLine());
                                     Console.WriteLine("Stock: ");
                                     int stock = Convert.ToInt32(Console.ReadLine());
-                                    Console.WriteLine(botiga.ModificarProducte(producteModificar, nomProducteNou, preuProducteNou, stock));
+                                    if (botiga.ModificarProducte(producteModificar, nomProducteNou, preuProducteNou, stock))
+                                    {
+                                        Console.WriteLine("Producte modificat amb exit.");
+                                    }
+                                    else
+                                        Console.WriteLine("El producte no s'ha pogut modificar");
+                                    Console.ReadLine();
                                     break;
                                 case "8":
                                     // Ordenar producte
                                     botiga.OrdenarProducte();
+                                    Console.WriteLine("Botiga ordenada per Producte.");
+                                    Console.ReadLine();
                                     break;
                                 case "9":
                                     // Ordenar preus
                                     botiga.OrdenarPreus();
+                                    Console.WriteLine("Botiga ordenada per preu.");
+                                    Console.ReadLine();
                                     break;
                                 case "10":
                                     // Veure productes
                                     Console.WriteLine("Productos disponibles:");
                                     botiga.Mostrar();
+                                    Console.ReadLine();
                                     break;
 
-                                default:
-                                    Console.WriteLine("Opció no reconeguda. Si us plau, torna a intentar-ho.");
-                                    break;
-                            }
+                            default:
+                                Console.WriteLine("Opció no reconeguda. Si us plau, torna a intentar-ho.");
+                                break;
                         }
                         break;
                     case "2":
                         Console.WriteLine("Has seleccionat fer una compra.");
-                        for (int i = 0; i < botiga.ObtenirProductes().Length; i++)
-                        {
-                            Producte p = botiga.ObtenirProductes()[i];
-                            Console.WriteLine((i + 1) + ". " + p.ObtenirNom() + ": " + p.ObtenirPreu());
-                        }
+                        botiga.Mostrar();
                         Console.Write("Selecciona un producto: ");
                         string nomProducte2 = Console.ReadLine();
                         Console.Write("Introdueix la quantitat que vols comprar: ");
@@ -155,7 +175,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
                         int trobat = botiga.Indexador(nomProducte2);
                         if (trobat != -1)
                         {
-                            bool comprat = cistella.ComprarProducte(botiga.Productes[trobat], quant);
+                            bool comprat = cistella.ComprarProducte(botiga.Producte[trobat], quant);
                             if (comprat == true)
                             {
                                 Console.WriteLine("Compra realitzada amb èxit.");

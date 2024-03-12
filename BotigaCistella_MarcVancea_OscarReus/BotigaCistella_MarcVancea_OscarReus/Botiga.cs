@@ -55,7 +55,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
             
             get { return productes; }
             set { for (int i = 0; i < productes.Length; i++)
-                    productes[i] = value; }
+                    productes[i] = value[i]; }
         }
         public int NElem
         {
@@ -71,7 +71,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
         {
             for (int i = 0; i < productes.Length; i++)
             {
-                if (productes[i] is null) // Comprovacion + devolver valor si no es null
+                if (productes[i] is null) // Comprovacion + devolver valor si es null
                     return i;    
             }
             return -1;
@@ -213,7 +213,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
         {
             for (int i = 0; i < nElem; i++)
             {
-                if (productes[i] == producte) // Comprovacion de productos de la array y producto que pasa el usuario
+                if (productes[i].Nom == producte.Nom) // Comprovacion de productos por nombre de la array y producto que pasa el usuario
                 {
                     // Si son iguales modifica los paramentros y devuelve true
                     productes[i].Nom = nouNom;
@@ -288,7 +288,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
             for (int i = 0;i < nElem;i++)
             {
                 Console.WriteLine($"Producte: {productes[i].Nom}, Preu sense iva: {productes[i].Preu_Sense_Iva} \n" +
-                                  $"Preu amb iva: {productes[i].Preu()}"); // Llamamos a metodo Preu para que nos devuelve el precio con iva
+                                  $"Preu amb iva: {productes[i].Preu() + productes[i].Preu_Sense_Iva}"); // Llamamos a metodo Preu para que nos devuelve el precio con iva
             }
         }
         /// <summary>
@@ -302,7 +302,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
             for (int i = 0; i < nElem; i++)
             {
                 datos += $"Producte: {productes[i].Nom}, Preu sense iva: {productes[i].Preu_Sense_Iva} " +
-                                  $"Preu amb iva: {productes[i].Preu()} IVA total: {productes[i].Iva}\n";
+                                  $"Preu amb iva: {productes[i].Preu() + productes[i].Preu_Sense_Iva} IVA total: {productes[i].Iva}\n";
             }
             return datos;
         }
