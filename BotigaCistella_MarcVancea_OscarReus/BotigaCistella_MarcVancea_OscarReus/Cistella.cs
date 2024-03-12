@@ -18,7 +18,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
         /// </summary>
         /// <param name="producte">array d'elements (llistat dels productes que es compren)</param>
         /// <param name="quantitat">int (indica la quantitat de productes que tindrem)</param>
-        /// <returns>retorna un boolea depenguent de si hi ha espai a la cistella o o</returns>
+        /// <returns>retorna un boolea depenguent de si hi ha espai a la cistella o no</returns>
         public bool AfegirProducte(Producte producte, int quantitat)
         {
             // Comprova si hi ha espai a la cistella i si hi ha suficients diners
@@ -113,7 +113,8 @@ namespace BotigaCistella_MarcVancea_OscarReus
         public bool ComprarProducte(Producte producte, int quantitat)
         {
             // Comprova si el producte existeix a la botiga
-            if (botiga.Indexador(producte) != -1)
+            if (!botiga.BuscarProducte(producte))
+
             {
                 Console.WriteLine("El producte no existeix a la botiga.");
                 return false;
@@ -164,7 +165,8 @@ namespace BotigaCistella_MarcVancea_OscarReus
             for (int i = 0; i < productes.Length; i++)
             {
                 // Comprova si el producte existeix a la botiga
-                if (botiga.Indexador(productes[i]) != -1)
+                if (!botiga.BuscarProducte(productes[i])) 
+
                 {
                     Console.WriteLine("El producte " + productes[i].Nom + " no existeix a la botiga.");
                     return false;
@@ -208,7 +210,8 @@ namespace BotigaCistella_MarcVancea_OscarReus
                 for (int j = 0; j < nElements - i - 1; j++)
                 {
                     // Comprova si el producte actual és major que el següent
-                    if (productes[j].Nom.CompareTo(productes[j + 1].Nom) > 0)
+                    if (productes[j].Nom().CompareTo(productes[j + 1].Nom()) > 0)
+
                     {
                         // Intercanvia els productes
                         Producte tempProducte = productes[j];
@@ -255,7 +258,8 @@ namespace BotigaCistella_MarcVancea_OscarReus
         /// <returns>retorna el total del cost total de la cistella</returns>
         public double CostTotal()
         {
-            double total = 0;
+            double total = 0m;
+
             for (int i = 0; i < nElements; i++)
             {
                 total += productes[i].Preu() * quantitat[i];
@@ -275,21 +279,21 @@ namespace BotigaCistella_MarcVancea_OscarReus
             string tiquet = "";
 
             tiquet += "TIQUET DE COMPRA\n";
-            tiquet += "Botiga: " + botiga.NomBotiga + "\n";
+            tiquet += "Botiga: " + botiga.NomBotiga() + "\n";
+
             tiquet += "Data: " + data.ToString() + "\n";
 
             double total = 0;
             for (int i = 0; i < nElements; i++)
             {
-                double preuTotal = productes[i].Preu() * quantitat[i];
-                total += preuTotal;
+                double preuTotal = productes[i].Preu_Sense_Iva * quantitat[i];
                 tiquet += "Producte: " + productes[i].Nom + "\n";
                 tiquet += "Quantitat: " + quantitat[i] + "\n";
-                tiquet += "Preu Unitari: " + productes[i].Preu() + "\n";
+                tiquet += "Preu Unitari: " + productes[i].Preu_Sense_Iva + "\n";
                 tiquet += "Preu Total: " + preuTotal + "\n\n";
             }
-
-            total *= 1.21;
+            for (int i = 0; i < nElements; i++)
+                total += productes[i].Preu() * quantitat[i];
 
             tiquet += "Total amb IVA inclòs: " + total + "\n";
 
