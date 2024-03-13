@@ -183,7 +183,17 @@ namespace BotigaCistella_MarcVancea_OscarReus
                 if (productes[i].Preu() * quantitats[i] > diners)
                 {
                     Console.WriteLine("No teniu suficients diners per comprar el producte " + productes[i].Nom + ". Voleu ingressar més diners?");
-                    return false;
+                    string resposta = Console.ReadLine();
+                    if (resposta.ToLower() == "si")
+                    {
+                        Console.WriteLine("Quant vols ingressar?");
+                        double quantitat = Convert.ToDouble(Console.ReadLine());
+                        IngressarDiners(quantitat);
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
 
                 // Afegeix el producte a la cistella
@@ -298,6 +308,27 @@ namespace BotigaCistella_MarcVancea_OscarReus
             tiquet += "Total amb IVA inclòs: " + total + "\n";
 
             return tiquet;
+        }
+
+        /// <summary>
+        /// Mètode que afegeix una quantitat de diners que volem ingresar en el nostre total de diners.
+        /// </summary>
+        /// <param name="quantitat">és la quantitat de diners que tenim</param>
+        public void IngressarDiners (double quantitat)
+        {
+            Console.WriteLine("Quina quantitat de diners vols ingresar?");
+            string input = Console.ReadLine();
+            quantitat = Convert.ToDouble(input);
+
+            if (quantitat >= 0)
+            {
+                this.diners += quantitat;
+                Console.WriteLine("Has ingressat " + quantitat + ". Ara tens " + this.diners + " diners al teu compte.");
+            }
+            else
+            {
+                Console.WriteLine("La quantitat ha de ser un número positiu.");
+            }
         }
 
     }

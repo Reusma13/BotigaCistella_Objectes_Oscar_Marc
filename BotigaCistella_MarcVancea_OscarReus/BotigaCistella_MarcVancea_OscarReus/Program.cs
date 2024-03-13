@@ -205,6 +205,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
                             case "3":
                                 Console.WriteLine("Has seleccionat ordenar la cistella.");
                                 cistella.OrdernarCistella();
+                                cistella.Mostra();
                                 break;
                             case "4":
                                 Console.WriteLine("Has seleccionat veure el cost total.");
