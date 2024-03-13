@@ -267,7 +267,8 @@ namespace BotigaCistella_MarcVancea_OscarReus
         /// manteniendo el orden sin dejar espacios libres.
         /// </summary>
         /// <param name="producte">el usuario nos da un producto</param>
-        public void EsborrarProducte(Producte producte)
+        /// <returns>Devuelve true si lo elimina y si no lo elimina devuelve false</returns>
+        public bool EsborrarProducte(Producte producte)
         {
             // Nos devuelve un numero que puede ser o el indice del producto en la tabla o -1 si no lo a encontrado
             int index = Indexador(producte.Nom);  // Le paso el nombre del producto
@@ -275,10 +276,11 @@ namespace BotigaCistella_MarcVancea_OscarReus
             {
                 for (int i = index; i < nElem - 1; i++) // i empieza en index porque los demas no hace falta tocarlos
                     productes[i] = productes[i + 1]; // Eliminarimos el productes[i] i lo sobreescribimos por productes[i + 1]
-                nElem--; 
+                nElem--;
+                return true;
             }
             else
-                Console.WriteLine("Producte no trobat");
+                return false;
         }
         /// <summary>
         /// Este metodo muestra por consola el nombre del producto junto con el precio sin y con iva.
@@ -288,7 +290,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
             for (int i = 0;i < nElem;i++)
             {
                 Console.WriteLine($"Producte: {productes[i].Nom}, Preu sense iva: {productes[i].Preu_Sense_Iva} \n" +
-                                  $"Preu amb iva: {productes[i].Preu() + productes[i].Preu_Sense_Iva}"); // Llamamos a metodo Preu para que nos devuelve el precio con iva
+                                  $"Preu amb iva: {productes[i].Preu() + productes[i].Preu_Sense_Iva} Stock: {productes[i].Quantitat}"); // Llamamos a metodo Preu para que nos devuelve el precio con iva
             }
         }
         /// <summary>
