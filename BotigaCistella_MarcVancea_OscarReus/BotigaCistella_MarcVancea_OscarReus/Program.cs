@@ -51,6 +51,8 @@ namespace BotigaCistella_MarcVancea_OscarReus
                                     Console.Write("Introdueix el preu del producte: ");
                                     double preuProducte = Convert.ToDouble(Console.ReadLine());
                                     Producte producte = new Producte(nomProducte, preuProducte);
+                                    // Llamamos al metodo AfegirProducte que le pasamos como parametro un producto y como devuelve un bool si es true hace
+                                    // el if y nos escribe que el producto a sido añadido, si devuelve false hace el else.
                                     if (botiga.AfegirProducte(producte))
                                         Console.WriteLine("Producte afegit amb èxit.");
                                     else
@@ -59,7 +61,6 @@ namespace BotigaCistella_MarcVancea_OscarReus
                                     break;
                                 case "2":
                                     // Afegir producte Array
-
                                     Console.WriteLine("Quants productes vols afegir? ");
                                     int numeroProducte = Convert.ToInt32(Console.ReadLine());
                                     Producte[] producteArray = new Producte[numeroProducte];
@@ -72,6 +73,8 @@ namespace BotigaCistella_MarcVancea_OscarReus
                                         Producte producte1 = new Producte(nomProducteArray, preuProducteArray);
                                         producteArray[i] = producte1;
                                     }
+                                    // Llamamos al metodo AfegirProducte pero en vez de pasarle solo un producto le pasamos una array
+                                    // ya que he hecho sobrecarga de metodo.
                                     if (botiga.AfegirProducte(producteArray))
                                         Console.WriteLine("Producte afegit amb èxit.");
                                     else
@@ -118,9 +121,11 @@ namespace BotigaCistella_MarcVancea_OscarReus
                                     Console.Write("Escriu un preu: ");
                                     double preuProducteBuscar = Convert.ToDouble(Console.ReadLine());
                                     Producte buscar = new Producte(nomProducteBuscar, preuProducteBuscar);
+                                    // Uso metodo para buscar el producto y si lo encuentra muestra el producto.ToString() que esta sobreescrito para que
+                                    // enseñe lo que necesito
                                     if (botiga.BuscarProducte(buscar))
                                     {
-                                        Console.WriteLine("Producte trobat");
+                                        Console.WriteLine(buscar.ToString());
                                     }
                                     else
                                         Console.WriteLine("producte no trobat");
@@ -173,34 +178,32 @@ namespace BotigaCistella_MarcVancea_OscarReus
                         }
                         break;
                     case "2":
-                                Console.WriteLine("Has seleccionat fer una compra.");
-                                botiga.Mostrar();
-                                Console.Write("Selecciona un producto: ");
-                                string nomProducte2 = Console.ReadLine();
-                                Console.Write("Introdueix la quantitat que vols comprar: ");
-                                int quant = Convert.ToInt32(Console.ReadLine());
-                                int trobat = botiga.Indexador(nomProducte2);
-                                if (trobat != -1)
-                                {
-                                    bool comprat = cistella.ComprarProducte(botiga.Producte[trobat], quant);
-                                    if (comprat == true)
-                                    {
-                                        Console.WriteLine("Compra realitzada amb èxit.");
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("No s'ha pogut realitzar la compra.");
-                                    }
-                                }
-                                break;
-                            case "3":
-                                Console.WriteLine("Has seleccionat sortir. Adeu!");
-                                break;
-                            default:
-                                Console.WriteLine("Opció no reconeguda. Si us plau, torna a intentar-ho.");
-                                break;
+                        Console.WriteLine("Has seleccionat fer una compra.");
+                        botiga.Mostrar();
+                        Console.Write("Selecciona un producto: ");
+                        string nomProducte2 = Console.ReadLine();
+                        Console.Write("Introdueix la quantitat que vols comprar: ");
+                        int quant = Convert.ToInt32(Console.ReadLine());
+                        int trobat = botiga.Indexador(nomProducte2);
+                        if (trobat != -1)
+                        {
+                            bool comprat = cistella.ComprarProducte(botiga.Producte[trobat], quant);
+                            if (comprat == true)
+                            {
+                                Console.WriteLine("Compra realitzada amb èxit.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("No s'ha pogut realitzar la compra.");
                             }
                         }
+                        break;
+                    case "3":
+                        Console.WriteLine("Has seleccionat sortir. Adeu!");
+                        break;
+                    default:
+                        Console.WriteLine("Opció no reconeguda. Si us plau, torna a intentar-ho.");
+                        break;
                 }
             }
         }
