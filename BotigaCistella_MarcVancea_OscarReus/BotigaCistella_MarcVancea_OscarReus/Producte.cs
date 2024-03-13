@@ -77,7 +77,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
         /// <returns>Devuelve en este caso el nombre, el precio con iva y la cantidad</returns>
         public override string ToString()
         {
-            return $"Nom: {nom}; preu: {Preu()}; quantiat: {quantitat}";
+            return $"Nom: {nom}; preu sense iva {preu_sense_iva}; preu amb iva: {preu_sense_iva + Preu()}; quantiat: {quantitat}";
         }
     }
 }

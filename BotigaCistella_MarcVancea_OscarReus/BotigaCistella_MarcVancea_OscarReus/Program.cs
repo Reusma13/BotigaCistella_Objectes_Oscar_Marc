@@ -51,6 +51,8 @@ namespace BotigaCistella_MarcVancea_OscarReus
                                     Console.Write("Introdueix el preu del producte: ");
                                     double preuProducte = Convert.ToDouble(Console.ReadLine());
                                     Producte producte = new Producte(nomProducte, preuProducte);
+                                    // Llamamos al metodo AfegirProducte que le pasamos como parametro un producto y como devuelve un bool si es true hace
+                                    // el if y nos escribe que el producto a sido añadido, si devuelve false hace el else.
                                     if (botiga.AfegirProducte(producte))
                                         Console.WriteLine("Producte afegit amb èxit.");
                                     else
@@ -59,7 +61,6 @@ namespace BotigaCistella_MarcVancea_OscarReus
                                     break;
                                 case "2":
                                     // Afegir producte Array
-                                    
                                     Console.WriteLine("Quants productes vols afegir? ");
                                     int numeroProducte = Convert.ToInt32(Console.ReadLine());
                                     Producte[] producteArray = new Producte[numeroProducte];
@@ -72,6 +73,8 @@ namespace BotigaCistella_MarcVancea_OscarReus
                                         Producte producte1 = new Producte(nomProducteArray, preuProducteArray);
                                         producteArray[i] = producte1;
                                     }
+                                    // Llamamos al metodo AfegirProducte pero en vez de pasarle solo un producto le pasamos una array
+                                    // ya que he hecho sobrecarga de metodo.
                                     if (botiga.AfegirProducte(producteArray))
                                         Console.WriteLine("Producte afegit amb èxit.");
                                     else
@@ -85,36 +88,44 @@ namespace BotigaCistella_MarcVancea_OscarReus
                                     Console.Write("Introdueix el preu del producte: ");
                                     double preuProducteEliminar = Convert.ToDouble(Console.ReadLine());
                                     Producte producteEliminar = new Producte(nomProducteEliminar, preuProducteEliminar);
-                                    botiga.EsborrarProducte(producteEliminar);
-                                    Console.WriteLine("Producte eliminat amb èxit.");
+                                    if (botiga.EsborrarProducte(producteEliminar))
+                                        Console.WriteLine("Producte eliminat amb èxit.");
+                                    else
+                                        Console.WriteLine("El producte no s'ha pogut eliminar.");
                                     Console.ReadLine();
                                     break;
                                 case "4":
                                     // Ampliar botiga
-                                    Console.WriteLine("Quant vols ampliar la botiga: ");
+                                    Console.Write("Quant vols ampliar la botiga: ");
                                     int ampliarBotiga = Convert.ToInt32(Console.ReadLine());
                                     botiga.AmpliarBotiga(ampliarBotiga);
+                                    Console.WriteLine("Botiga ampliada");
                                     Console.ReadLine();
                                     break;
                                 case "5":
                                     // Modifcar preu
-                                    Console.WriteLine("Escriu el nom del producte per modificar el preu: ");
+                                    Console.Write("Escriu el nom del producte per modificar el preu: ");
                                     string nomProducteModificar = Console.ReadLine();
-                                    Console.WriteLine("Quin preu li vols posar: ");
+                                    Console.Write("Quin preu li vols posar: ");
                                     double preuProducteModificar = Convert.ToDouble(Console.ReadLine());
-                                    Console.WriteLine(botiga.ModificarPreu(nomProducteModificar, preuProducteModificar));
+                                    if (botiga.ModificarPreu(nomProducteModificar, preuProducteModificar))
+                                        Console.WriteLine("Preu modificiat");
+                                    else
+                                        Console.WriteLine("El preu no s'ha modificat");
                                     Console.ReadLine();
                                     break;
                                 case "6":
                                     // Buscar producte
-                                    Console.WriteLine("Escriu el nom del producte: ");
+                                    Console.Write("Escriu el nom del producte: ");
                                     string nomProducteBuscar = Console.ReadLine();
-                                    Console.WriteLine("Escriu un preu: ");
+                                    Console.Write("Escriu un preu: ");
                                     double preuProducteBuscar = Convert.ToDouble(Console.ReadLine());
                                     Producte buscar = new Producte(nomProducteBuscar, preuProducteBuscar);
-                                    if(botiga.BuscarProducte(buscar))
+                                    // Uso metodo para buscar el producto y si lo encuentra muestra el producto.ToString() que esta sobreescrito para que
+                                    // enseñe lo que necesito
+                                    if (botiga.BuscarProducte(buscar))
                                     {
-                                        Console.WriteLine("Producte trobat");
+                                        Console.WriteLine(buscar.ToString());
                                     }
                                     else
                                         Console.WriteLine("producte no trobat");
@@ -122,17 +133,16 @@ namespace BotigaCistella_MarcVancea_OscarReus
                                     break;
                                 case "7":
                                     // Modifcar producte
-                                    Console.WriteLine("Nom del producte que vols modificar: ");
-                                    string nomProducteModifcar2 = Console.ReadLine();
+                                    Console.Write("Nom del producte que vols modificar: ");
+                                    string nomProducteModifcar = Console.ReadLine();
                                     Console.Write("Preu del producte que vols modificar: ");
                                     double preuProducteModificar2 = Convert.ToDouble(Console.ReadLine());
-                                    Producte producteModificar = new Producte(nomProducteModifcar2, preuProducteModificar2);
-
-                                    Console.WriteLine("Nom que vols posar-li al nou producte: ");
+                                    Producte producteModificar = new Producte(nomProducteModifcar, preuProducteModificar2);
+                                    Console.Write("Nom que vols posar-li al nou producte: ");
                                     string nomProducteNou = Console.ReadLine();
-                                    Console.WriteLine("Preu que vols posar-li al nou producte: ");
+                                    Console.Write("Preu que vols posar-li al nou producte: ");
                                     double preuProducteNou = Convert.ToDouble(Console.ReadLine());
-                                    Console.WriteLine("Stock: ");
+                                    Console.Write("Stock: ");
                                     int stock = Convert.ToInt32(Console.ReadLine());
                                     if (botiga.ModificarProducte(producteModificar, nomProducteNou, preuProducteNou, stock))
                                     {
