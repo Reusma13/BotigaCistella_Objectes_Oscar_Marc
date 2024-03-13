@@ -167,24 +167,55 @@ namespace BotigaCistella_MarcVancea_OscarReus
                         }
                         break;
                     case "2":
-                        Console.WriteLine("Has seleccionat fer una compra.");
-                        botiga.Mostrar();
-                        Console.Write("Selecciona un producto: ");
-                        string nomProducte2 = Console.ReadLine();
-                        Console.Write("Introdueix la quantitat que vols comprar: ");
-                        int quant = Convert.ToInt32(Console.ReadLine());
-                        int trobat = botiga.Indexador(nomProducte2);
-                        if (trobat != -1)
+                        Console.Clear();
+                        Console.WriteLine("1. Fer una compra");
+                        Console.WriteLine("2. Veure cistella");
+                        Console.WriteLine("3. Ordenar cistella");
+                        Console.WriteLine("4. Veure cost total");
+                        Console.WriteLine("5. Sortir");
+                        Console.Write("Selecciona una opció: ");
+                        opcio = Console.ReadLine();
+                        switch (opcio)
                         {
-                            bool comprat = cistella.ComprarProducte(botiga.Producte[trobat], quant);
-                            if (comprat == true)
-                            {
-                                Console.WriteLine("Compra realitzada amb èxit.");
-                            }
-                            else
-                            {
-                                Console.WriteLine("No s'ha pogut realitzar la compra.");
-                            }
+                            case "1":
+                                Console.WriteLine("Has seleccionat fer una compra.");
+                                botiga.Mostrar();
+                                Console.Write("Selecciona un producto: ");
+                                string nomProducte2 = Console.ReadLine();
+                                Console.Write("Introdueix la quantitat que vols comprar: ");
+                                int quant = Convert.ToInt32(Console.ReadLine());
+                                int trobat = botiga.Indexador(nomProducte2);
+                                if (trobat != -1)
+                                {
+                                    bool comprat = cistella.ComprarProducte(botiga.Producte[trobat], quant);
+                                    if (comprat == true)
+                                    {
+                                        Console.WriteLine("Compra realitzada amb èxit.");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("No s'ha pogut realitzar la compra.");
+                                    }
+                                }
+                                break;
+                            case "2":
+                                Console.WriteLine("Has seleccionat veure la cistella.");
+                                cistella.Mostra();
+                                break;
+                            case "3":
+                                Console.WriteLine("Has seleccionat ordenar la cistella.");
+                                cistella.OrdernarCistella();
+                                break;
+                            case "4":
+                                Console.WriteLine("Has seleccionat veure el cost total.");
+                                Console.WriteLine("Cost total: " + cistella.CostTotal());
+                                break;
+                            case "5":
+                                Console.WriteLine("Has seleccionat sortir. Adeu!");
+                                break;
+                            default:
+                                Console.WriteLine("Opció no reconeguda. Si us plau, torna a intentar-ho.");
+                                break;
                         }
                         break;
                     case "3":
