@@ -200,10 +200,11 @@ namespace BotigaCistella_MarcVancea_OscarReus
                                     string nomProducte2 = Console.ReadLine();
                                     Console.Write("Introdueix la quantitat que vols comprar: ");
                                     int quant = Convert.ToInt32(Console.ReadLine());
-                                    int trobat = botiga.Indexador(nomProducte2);
+                                    int trobat = botiga.Indexador(nomProducte2); // Llama a indexador para encontrar el index del producto
                                     if (trobat != -1)
                                     {
-                                        bool comprat = cistella.ComprarProducte(botiga.Producte[trobat], quant);
+                                        // Llamamos al metodo y le pasamos el index que nos a devuelto el indexador y cuanta cantidad queremos.
+                                        bool comprat = cistella.ComprarProducte(botiga.Producte[trobat], quant);  
                                         if (comprat == true)
                                         {
                                             Console.WriteLine("Compra realitzada amb èxit.");
@@ -222,6 +223,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
                                 case "3":
                                     Console.WriteLine("Has seleccionat ordenar la cistella.");
                                     cistella.OrdernarCistella();
+                                    cistella.Mostra();
                                     Console.ReadLine();
                                     break;
                                 case "4":
@@ -249,6 +251,11 @@ namespace BotigaCistella_MarcVancea_OscarReus
                 } 
             }
         }
+        /// <summary>
+        /// Le pasamos nuestra botiga para que podamos coger el nElem y tambien la array de productos y llamamos al metodo ToString para
+        /// que nos ponga en el CSV los productos.
+        /// </summary>
+        /// <param name="botiga"></param>
         static void EscriureCSV(Botiga botiga)
         {
             if (botiga.Producte is not null)

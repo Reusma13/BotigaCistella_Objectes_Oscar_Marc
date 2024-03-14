@@ -320,7 +320,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
             {
                 datos += $"Producte: {productes[i].Nom}, Preu sense iva: {productes[i].Preu_Sense_Iva}, " +
                                   $"Preu amb iva: {productes[i].Preu() + productes[i].Preu_Sense_Iva}, IVA total: {productes[i].Iva}," +
-                                  $"Stock: {productes[i].Quantitat} \n";
+                                  $"Stock: {productes[i].Quantitat}. \n";
             }
             return datos;
         }
