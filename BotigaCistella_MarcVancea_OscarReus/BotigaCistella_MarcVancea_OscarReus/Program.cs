@@ -197,7 +197,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
                                 int trobat = botiga.Indexador(nomProducte2);
                                 if (trobat != -1)
                                 {
-                                    bool comprat = cistella.ComprarProducte(botiga.Producte[trobat], quant);
+                                    bool comprat = cistella.AfegirProducte(botiga.Producte[trobat], quant);
                                     if (comprat == true)
                                     {
                                         Console.WriteLine("Compra realitzada amb èxit.");
