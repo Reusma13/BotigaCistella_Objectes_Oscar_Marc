@@ -116,6 +116,13 @@ namespace BotigaCistella_MarcVancea_OscarReus
             this.productes[nElements] = producte;
             this.quantitat[nElements] = quantitat;
             nElements++;
+            for (int i = 0; i < botiga.NElem; i++)
+            { 
+                if (botiga.Producte[i].Nom == producte.Nom)
+                {
+                    botiga.Producte[i].Quantitat -= quantitat;
+                }
+            }
             this.diners -= (producte.Preu_Sense_Iva + producte.Preu()) * quantitat;
 
             // Modifica la data
@@ -168,6 +175,13 @@ namespace BotigaCistella_MarcVancea_OscarReus
                 this.productes[nElements] = productes[i];
                 this.quantitat[nElements] = quantitats[i];
                 nElements++;
+                for (int j = 0; j < botiga.Producte.Length; j++)
+                {
+                    if (botiga.Producte[i].Nom == productes[j].Nom)
+                    {
+                        botiga.Producte[i].Quantitat -= quantitats[j];
+                    }
+                }
                 this.diners -= (productes[i].Preu_Sense_Iva + productes[i].Preu()) * quantitats[i];
 
                 // Modificar la data
