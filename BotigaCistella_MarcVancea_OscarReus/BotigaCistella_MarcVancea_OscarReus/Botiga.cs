@@ -318,8 +318,9 @@ namespace BotigaCistella_MarcVancea_OscarReus
             string datos = "";
             for (int i = 0; i < nElem; i++)
             {
-                datos += $"Producte: {productes[i].Nom}, Preu sense iva: {productes[i].Preu_Sense_Iva} " +
-                                  $"Preu amb iva: {productes[i].Preu() + productes[i].Preu_Sense_Iva} IVA total: {productes[i].Iva}\n";
+                datos += $"Producte: {productes[i].Nom}, Preu sense iva: {productes[i].Preu_Sense_Iva}, " +
+                                  $"Preu amb iva: {productes[i].Preu() + productes[i].Preu_Sense_Iva}, IVA total: {productes[i].Iva}," +
+                                  $"Stock: {productes[i].Quantitat} \n";
             }
             return datos;
         }

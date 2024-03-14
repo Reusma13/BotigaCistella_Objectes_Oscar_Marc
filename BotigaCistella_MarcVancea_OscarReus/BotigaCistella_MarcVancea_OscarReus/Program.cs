@@ -169,6 +169,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
                                     // Veure productes
                                     Console.WriteLine("Productos disponibles:");
                                     botiga.Mostrar();
+                                    EscriureCSV(botiga);
                                     Console.ReadLine();
                                     break;
                                 default:
@@ -245,9 +246,23 @@ namespace BotigaCistella_MarcVancea_OscarReus
                         Console.WriteLine("Opció no reconeguda. Si us plau, torna a intentar-ho.");
                         break;
 
-                }
-
+                } 
             }
+        }
+        static void EscriureCSV(Botiga botiga)
+        {
+            if (botiga.Producte is not null)
+            {
+                StreamWriter sW = new StreamWriter("persistencia.csv", true);
+                sW.WriteLine(botiga.NomBotiga);
+                for (int i = 0; i < botiga.NElem; i++)
+                {
+                    sW.WriteLine(botiga.Producte[i].ToString());
+                }
+                sW.Close();
+            }
+            else
+                Console.WriteLine("No hi ha productes per posar CSV.");
         }
     }
 }
