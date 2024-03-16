@@ -165,17 +165,9 @@ namespace BotigaCistella_MarcVancea_OscarReus
             for (int i = 0; i < productes.Length; i++)
             {
                 // Comprova si el producte existeix a la botiga
-                if (!botiga.BuscarProducte(productes[i])) 
-
+                if (!botiga.BuscarProducte(productes[i]))
                 {
                     Console.WriteLine("El producte " + productes[i].Nom + " no existeix a la botiga.");
-                    return false;
-                }
-
-                // Comprova si hi ha espai a la cistella
-                if (nElements >= this.productes.Length)
-                {
-                    Console.WriteLine("No hi ha espai a la cistella. Voleu ampliar la cistella?");
                     return false;
                 }
 
@@ -197,17 +189,17 @@ namespace BotigaCistella_MarcVancea_OscarReus
                 }
 
                 // Afegeix el producte a la cistella
-                this.productes[nElements] = productes[i];
-                this.quantitat[nElements] = quantitats[i];
-                this.nElements++;
+                this.productes[i] = productes[i];
+                this.quantitat[i] = quantitats[i];
                 this.diners -= productes[i].Preu() * quantitats[i];
-
-                // Modificar la data
-                this.data = DateTime.Now;
             }
+
+            // Modificar la data
+            this.data = DateTime.Now;
 
             return true;
         }
+
 
         /// <summary>
         /// Mètode que ordena la nostra cistella per ordre alfabètic amb elmètode de bombolla

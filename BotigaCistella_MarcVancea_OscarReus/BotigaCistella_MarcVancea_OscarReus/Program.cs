@@ -179,10 +179,11 @@ namespace BotigaCistella_MarcVancea_OscarReus
                     case "2":
                         Console.Clear();
                         Console.WriteLine("1. Fer una compra");
-                        Console.WriteLine("2. Veure cistella");
-                        Console.WriteLine("3. Ordenar cistella");
-                        Console.WriteLine("4. Veure cost total");
-                        Console.WriteLine("5. Sortir");
+                        Console.WriteLine("2. Comprar múltiples productes");
+                        Console.WriteLine("3. Veure cistella");
+                        Console.WriteLine("4. Ordenar cistella");
+                        Console.WriteLine("5. Veure cost total");
+                        Console.WriteLine("6. Sortir");
                         Console.Write("Selecciona una opció: ");
                         opcio = Console.ReadLine();
                         switch (opcio)
@@ -209,19 +210,59 @@ namespace BotigaCistella_MarcVancea_OscarReus
                                 }
                                 break;
                             case "2":
+                                Console.WriteLine("Quants productes vols comprar?");
+                                int numProductes = Convert.ToInt32(Console.ReadLine());
+
+                                Producte[] productes = new Producte[numProductes];
+                                int[] quantitats = new int[numProductes];
+
+                                for (int i = 0; i < numProductes; i++)
+                                {
+                                    Console.WriteLine("Introdueix el nom del producte " + (i + 1) + ":");
+                                    string nomProducte3 = Console.ReadLine();
+                                    int indexProducte = botiga.Indexador(nomProducte3);
+
+                                    if (indexProducte == -1)
+                                    {
+                                        Console.WriteLine("El producte no existeix a la botiga.");
+                                        i--;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Introdueix la quantitat que vols comprar del producte " + nomProducte3 + ":");
+                                        int quantitat = Convert.ToInt32(Console.ReadLine());
+
+                                        productes[i] = botiga.Producte[indexProducte];
+                                        quantitats[i] = quantitat;
+                                    }
+                                }
+
+                                bool resultat = cistella.ComprarProducte(productes, quantitats);
+
+                                if (resultat)
+                                {
+                                    Console.WriteLine("Compra realitzada amb èxit!");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("La compra no s'ha pogut realitzar.");
+                                }
+
+                                break;
+                            case "3":
                                 Console.WriteLine("Has seleccionat veure la cistella.");
                                 cistella.Mostra();
                                 break;
-                            case "3":
+                            case "4":
                                 Console.WriteLine("Has seleccionat ordenar la cistella.");
                                 cistella.OrdernarCistella();
                                 cistella.Mostra();
                                 break;
-                            case "4":
+                            case "5":
                                 Console.WriteLine("Has seleccionat veure el cost total.");
                                 Console.WriteLine("Cost total: " + cistella.CostTotal());
                                 break;
-                            case "5":
+                            case "6":
                                 Console.WriteLine("Has seleccionat sortir. Adeu!");
                                 break;
                             default:
