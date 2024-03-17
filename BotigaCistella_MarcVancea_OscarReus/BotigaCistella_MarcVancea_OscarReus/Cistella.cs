@@ -147,7 +147,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
             }
 
             // Per cada producte a la llista de productes
-            for (int i = 0; i < productes.Length; i++)
+            for (int i = 0; i < productes.Length && productes[i] is not null; i++)
             {
                 // Comprova si el producte existeix a la botiga
                 if (!botiga.BuscarProducte(productes[i]))
@@ -177,11 +177,11 @@ namespace BotigaCistella_MarcVancea_OscarReus
                 this.productes[nElements] = productes[i];
                 this.quantitat[nElements] = quantitats[i];
                 nElements++;
-                for (int j = 0; j < botiga.Producte.Length; j++)
+                for (int j = 0; j < botiga.Producte.Length && botiga.Producte[j] is not null; j++)
                 {
-                    if (botiga.Producte[i].Nom == productes[j].Nom)
+                    if (botiga.Producte[j].Nom == productes[i].Nom)
                     {
-                        botiga.Producte[i].Quantitat -= quantitats[j];
+                        botiga.Producte[j].Quantitat -= quantitats[i];
                     }
                 }
                 this.diners -= (productes[i].Preu_Sense_Iva + productes[i].Preu()) * quantitats[i];
