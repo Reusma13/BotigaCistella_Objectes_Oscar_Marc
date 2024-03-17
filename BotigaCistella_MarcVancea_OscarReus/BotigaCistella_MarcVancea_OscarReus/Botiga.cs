@@ -19,7 +19,12 @@ namespace BotigaCistella_MarcVancea_OscarReus
             productes = new Producte[10];
             nElem = 0;
         }
-        public Botiga(string nom, int nombreProductes): this()
+        public Botiga(string nom) : this()
+        {
+            this.nomBotiga = nom;
+            
+        }
+        public Botiga(string nom, int nombreProductes): this(nom)
         {
             this.nomBotiga = nom;
             this.productes = new Producte[nombreProductes];
@@ -93,7 +98,8 @@ namespace BotigaCistella_MarcVancea_OscarReus
         }
         /// <summary>
         /// Este metodo llama a EspaiLliure para comprovar si hay espacios vacios, si lo hay lo añade y pone el bool en true
-        /// si no hay espacio nos pregunta si queremos ampliarla y llama a AmpliarBotiga
+        /// si no hay espacio nos pregunta si queremos ampliarla y llama a AmpliarBotiga. Tambien utilizo Indexador para ver si esta el producto
+        /// si el producto esta coge el index de Indexador que a devuelto y coge la array en la posicion del indice y le añade 1 a cantidad.
         /// </summary>
         /// <param name="producte">Se le pasa un producto</param>
         /// <returns>devolve un true si lo a añadido y devuelve un false si no lo a añadido</returns>
@@ -101,11 +107,20 @@ namespace BotigaCistella_MarcVancea_OscarReus
         {
             int index = EspaiLliure(); // Cogemos indice si hay espacios o -1 si no hay espacios
             bool afegit = false;
+            int comprovarSiEsta = Indexador(producte.Nom);
             if (index != -1)
             {
-                productes[index] = producte; // Donde hay espacio pone el producto
-                afegit = true;
-                nElem++;
+                if (comprovarSiEsta != -1)
+                {
+                    productes[comprovarSiEsta].Quantitat += 1;
+                    afegit = true;
+                }
+                else
+                {
+                    productes[index] = producte; // Donde hay espacio pone el producto
+                    afegit = true;
+                    nElem++;
+                }
             }
             else
             {
@@ -303,8 +318,9 @@ namespace BotigaCistella_MarcVancea_OscarReus
             string datos = "";
             for (int i = 0; i < nElem; i++)
             {
-                datos += $"Producte: {productes[i].Nom}, Preu sense iva: {productes[i].Preu_Sense_Iva} " +
-                                  $"Preu amb iva: {productes[i].Preu() + productes[i].Preu_Sense_Iva} IVA total: {productes[i].Iva}\n";
+                datos += $"Producte: {productes[i].Nom}, Preu sense iva: {productes[i].Preu_Sense_Iva}, " +
+                                  $"Preu amb iva: {productes[i].Preu() + productes[i].Preu_Sense_Iva}, IVA total: {productes[i].Iva}," +
+                                  $"Stock: {productes[i].Quantitat}. \n";
             }
             return datos;
         }

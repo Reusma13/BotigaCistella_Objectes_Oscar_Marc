@@ -4,8 +4,9 @@ namespace BotigaCistella_MarcVancea_OscarReus
     {
         static void Main(string[] args)
         {
-            Botiga botiga = new Botiga();
-            Cistella cistella = new Cistella();
+            Console.WriteLine("Posa nom a la botiga: ");
+            string nomBotiga = Console.ReadLine();
+            Botiga botiga = new Botiga(nomBotiga);
             string opcio = "1";
             while (opcio != "3")
             {
@@ -168,6 +169,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
                                     // Veure productes
                                     Console.WriteLine("Productos disponibles:");
                                     botiga.Mostrar();
+                                    EscriureCSV(botiga);
                                     Console.ReadLine();
                                     break;
                                 default:
@@ -177,35 +179,41 @@ namespace BotigaCistella_MarcVancea_OscarReus
                         }
                         break;
                     case "2":
-                        Console.Clear();
-                        Console.WriteLine("1. Fer una compra");
-                        Console.WriteLine("2. Comprar múltiples productes");
-                        Console.WriteLine("3. Veure cistella");
-                        Console.WriteLine("4. Ordenar cistella");
-                        Console.WriteLine("5. Veure cost total");
-                        Console.WriteLine("6. Sortir");
-                        Console.Write("Selecciona una opció: ");
-                        opcio = Console.ReadLine();
-                        switch (opcio)
+                        Cistella cistella = new Cistella(botiga);
+                        string opcioCistella = "0";
+                        while (opcioCistella != "6")
                         {
-                            case "1":
-                                Console.WriteLine("Has seleccionat fer una compra.");
-                                botiga.Mostrar();
-                                Console.Write("Selecciona un producto: ");
-                                string nomProducte2 = Console.ReadLine();
-                                Console.Write("Introdueix la quantitat que vols comprar: ");
-                                int quant = Convert.ToInt32(Console.ReadLine());
-                                int trobat = botiga.Indexador(nomProducte2);
-                                if (trobat != -1)
-                                {
-                                    bool comprat = cistella.AfegirProducte(botiga.Producte[trobat], quant);
-                                    if (comprat == true)
+                            Console.Clear();
+                            Console.WriteLine("1. Fer una compra");
+                            Console.WriteLine("2. Comprar múltiples productes");
+                            Console.WriteLine("3. Veure cistella");
+                            Console.WriteLine("4. Ordenar cistella");
+                            Console.WriteLine("5. Veure cost total");
+                            Console.WriteLine("6. Sortir");
+                            Console.Write("Selecciona una opció: ");
+                            opcioCistella = Console.ReadLine();
+                            switch (opcioCistella)
+                            {
+                                case "1":
+                                    Console.WriteLine("Has seleccionat fer una compra.");
+                                    botiga.Mostrar();
+                                    Console.Write("Selecciona un producto: ");
+                                    string nomProducte2 = Console.ReadLine();
+                                    Console.Write("Introdueix la quantitat que vols comprar: ");
+                                    int quant = Convert.ToInt32(Console.ReadLine());
+                                    int trobat = botiga.Indexador(nomProducte2); // Llama a indexador para encontrar el index del producto
+                                    if (trobat != -1)
                                     {
-                                        Console.WriteLine("Compra realitzada amb èxit.");
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("No s'ha pogut realitzar la compra.");
+                                        // Llamamos al metodo y le pasamos el index que nos a devuelto el indexador y cuanta cantidad queremos.
+                                        bool comprat = cistella.ComprarProducte(botiga.Producte[trobat], quant);  
+                                        if (comprat == true)
+                                        {
+                                            Console.WriteLine("Compra realitzada amb èxit.");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("No s'ha pogut realitzar la compra.");
+                                        }
                                     }
                                 }
                                 break;
@@ -247,23 +255,27 @@ namespace BotigaCistella_MarcVancea_OscarReus
                                 {
                                     Console.WriteLine("La compra no s'ha pogut realitzar.");
                                 }
-
+                                Console.ReadLine();
                                 break;
                             case "3":
                                 Console.WriteLine("Has seleccionat veure la cistella.");
                                 cistella.Mostra();
+                                Console.ReadLine();
                                 break;
                             case "4":
                                 Console.WriteLine("Has seleccionat ordenar la cistella.");
                                 cistella.OrdernarCistella();
                                 cistella.Mostra();
+                                Console.ReadLine();
                                 break;
                             case "5":
                                 Console.WriteLine("Has seleccionat veure el cost total.");
                                 Console.WriteLine("Cost total: " + cistella.CostTotal());
+                                Console.ReadLine();
                                 break;
                             case "6":
                                 Console.WriteLine("Has seleccionat sortir. Adeu!");
+                                Console.ReadLine();
                                 break;
                             default:
                                 Console.WriteLine("Opció no reconeguda. Si us plau, torna a intentar-ho.");
@@ -276,9 +288,29 @@ namespace BotigaCistella_MarcVancea_OscarReus
                     default:
                         Console.WriteLine("Opció no reconeguda. Si us plau, torna a intentar-ho.");
                         break;
-                                
-                }
+
+                } 
             }
+        }
+        /// <summary>
+        /// Le pasamos nuestra botiga para que podamos coger el nElem y tambien la array de productos y llamamos al metodo ToString para
+        /// que nos ponga en el CSV los productos.
+        /// </summary>
+        /// <param name="botiga"></param>
+        static void EscriureCSV(Botiga botiga)
+        {
+            if (botiga.Producte is not null)
+            {
+                StreamWriter sW = new StreamWriter("persistencia.csv", true);
+                sW.WriteLine(botiga.NomBotiga);
+                for (int i = 0; i < botiga.NElem; i++)
+                {
+                    sW.WriteLine(botiga.Producte[i].ToString());
+                }
+                sW.Close();
+            }
+            else
+                Console.WriteLine("No hi ha productes per posar CSV.");
         }
     }
 }

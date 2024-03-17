@@ -12,67 +12,45 @@ namespace BotigaCistella_MarcVancea_OscarReus
         private double diners; // Els diners disponibles per a la compra
 
         // Propietats
-
-        /// <summary>
-        /// Mètode per afegir un producte a la cistella
-        /// </summary>
-        /// <param name="producte">array d'elements (llistat dels productes que es compren)</param>
-        /// <param name="quantitat">int (indica la quantitat de productes que tindrem)</param>
-        /// <returns>retorna un boolea depenguent de si hi ha espai a la cistella o no</returns>
-        public bool AfegirProducte(Producte producte, int quantitat)
+        public string ObtenirBotiga
         {
-            // Comprova si hi ha espai a la cistella i si hi ha suficients diners
-            if (nElements < productes.Length && producte.Preu() * quantitat <= diners)
-            {
-                // Afegeix el producte a la cistella
-                this.productes[nElements] = producte;
-                this.quantitat[nElements] = quantitat;
-                this.nElements++;
-                this.diners -= producte.Preu() * quantitat;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            get { return botiga.NomBotiga; }
         }
-
         /// <summary>
         /// Mètode per obtenir el nombre total d'elements a la cistella
         /// </summary>
         /// <returns>retorna el numero del elements</returns>
-        public int ObtenirNElements()
+        public int ObtenirNElements
         {
-            return this.nElements;
+            get { return nElements;}
         }
 
         /// <summary>
         /// Mètode per obtenir els diners restants
         /// </summary>
         /// <returns>retorna els diners que tens</returns>
-        public double ObtenirDiners()
+        public double ObtenirDiners
         {
-            return this.diners;
+            get { return this.diners; }
         }
 
         /// <summary>
         /// Mètode per obtenir la data de la compra
         /// </summary>
         /// <returns>retorna la data</returns>
-        public DateTime ObtenirData()
+        public DateTime ObtenirData
         {
-            return this.data;
+            get { return this.data; }
         }
 
         // Constructor buit
-        public Cistella()
+        public Cistella(Botiga botiga)
         {
-            this.botiga = null;
+            this.botiga = botiga;
             this.data = DateTime.Now;
             this.productes = new Producte[10];
             this.quantitat = new int[10];
-            this.nElements = 0;
-            this.diners = 0;
+            this.diners = 10000;
         }
 
         // Constructor amb botiga, productes, quantitats i diners
@@ -85,7 +63,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
                 double total = 0;
                 for (int i = 0; i < productes.Length; i++)
                 {
-                    total += productes[i].Preu() * quantitat[i];
+                    total += (productes[i].Preu_Sense_Iva + productes[i].Preu()) * quantitat[i];
                 }
 
                 // Comprova si hi ha suficients diners per a la compra
@@ -95,7 +73,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
                     this.data = DateTime.Now;
                     this.productes = productes;
                     this.quantitat = quantitat;
-                    this.nElements = productes.Length;
+                    nElements = productes.Length;
                     this.diners = diners - total;
                 }
             }
@@ -128,7 +106,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
             }
 
             // Comprova si hi ha suficients diners per comprar el producte
-            if (producte.Preu() * quantitat > diners)
+            if ((producte.Preu_Sense_Iva + producte.Preu()) * quantitat > diners)
             {
                 Console.WriteLine("No teniu suficients diners per comprar aquest producte. Voleu ingressar més diners?");
                 return false;
@@ -137,8 +115,15 @@ namespace BotigaCistella_MarcVancea_OscarReus
             // Afegeix el producte a la cistella
             this.productes[nElements] = producte;
             this.quantitat[nElements] = quantitat;
-            this.nElements++;
-            this.diners -= producte.Preu() * quantitat;
+            nElements++;
+            for (int i = 0; i < botiga.NElem; i++)
+            { 
+                if (botiga.Producte[i].Nom == producte.Nom)
+                {
+                    botiga.Producte[i].Quantitat -= quantitat;
+                }
+            }
+            this.diners -= (producte.Preu_Sense_Iva + producte.Preu()) * quantitat;
 
             // Modifica la data
             this.data = DateTime.Now;
@@ -172,7 +157,7 @@ namespace BotigaCistella_MarcVancea_OscarReus
                 }
 
                 // Comprova si hi ha suficients diners per comprar el producte
-                if (productes[i].Preu() * quantitats[i] > diners)
+                if (productes[i].Preu_Sense_Iva + productes[i].Preu() * quantitats[i] > diners)
                 {
                     Console.WriteLine("No teniu suficients diners per comprar el producte " + productes[i].Nom + ". Voleu ingressar més diners?");
                     string resposta = Console.ReadLine();
@@ -189,9 +174,20 @@ namespace BotigaCistella_MarcVancea_OscarReus
                 }
 
                 // Afegeix el producte a la cistella
-                this.productes[i] = productes[i];
-                this.quantitat[i] = quantitats[i];
-                this.diners -= productes[i].Preu() * quantitats[i];
+                this.productes[nElements] = productes[i];
+                this.quantitat[nElements] = quantitats[i];
+                nElements++;
+                for (int j = 0; j < botiga.Producte.Length; j++)
+                {
+                    if (botiga.Producte[i].Nom == productes[j].Nom)
+                    {
+                        botiga.Producte[i].Quantitat -= quantitats[j];
+                    }
+                }
+                this.diners -= (productes[i].Preu_Sense_Iva + productes[i].Preu()) * quantitats[i];
+
+                // Modificar la data
+                this.data = DateTime.Now;
             }
 
             // Modificar la data
@@ -235,23 +231,23 @@ namespace BotigaCistella_MarcVancea_OscarReus
         public void Mostra()
         {
             Console.WriteLine("TIQUET DE COMPRA");
-            Console.WriteLine("Botiga: " + botiga.NomBotiga);
-            Console.WriteLine("Data: " + data.ToString());
+            Console.WriteLine("Botiga: " + ObtenirBotiga);
+            Console.WriteLine("Data: " + ObtenirData.ToString());
 
             double total = 0;
             for (int i = 0; i < nElements; i++)
             {
-                double preuTotal = productes[i].Preu() * quantitat[i];
+                double preuTotal = (productes[i].Preu_Sense_Iva + productes[i].Preu()) * quantitat[i];
                 total += preuTotal;
                 Console.WriteLine("Producte: " + productes[i].Nom);
                 Console.WriteLine("Quantitat: " + quantitat[i]);
-                Console.WriteLine("Preu Unitari: " + productes[i].Preu());
+                Console.WriteLine("Preu Unitari: " + (productes[i].Preu_Sense_Iva + productes[i].Preu()));
                 Console.WriteLine("Preu Total: " + preuTotal);
                 Console.WriteLine();
             }
 
             Console.WriteLine("Total: " + total);
-            Console.WriteLine("Diners Restants: " + diners);
+            Console.WriteLine("Diners Restants: " + ObtenirDiners);
         }
 
         /// <summary>
@@ -264,11 +260,8 @@ namespace BotigaCistella_MarcVancea_OscarReus
 
             for (int i = 0; i < nElements; i++)
             {
-                total += productes[i].Preu() * quantitat[i];
+                total += (productes[i].Preu_Sense_Iva + productes[i].Preu()) * quantitat[i];
             }
-
-            total *= 1.21;
-
             return total;
         }
 
@@ -288,14 +281,14 @@ namespace BotigaCistella_MarcVancea_OscarReus
             double total = 0;
             for (int i = 0; i < nElements; i++)
             {
-                double preuTotal = productes[i].Preu_Sense_Iva * quantitat[i];
+                double preuTotal = (productes[i].Preu_Sense_Iva + productes[i].Preu()) * quantitat[i];
                 tiquet += "Producte: " + productes[i].Nom + "\n";
                 tiquet += "Quantitat: " + quantitat[i] + "\n";
-                tiquet += "Preu Unitari: " + productes[i].Preu_Sense_Iva + "\n";
+                tiquet += "Preu Unitari: " + productes[i].Preu_Sense_Iva + productes[i].Preu() + "\n";
                 tiquet += "Preu Total: " + preuTotal + "\n\n";
             }
             for (int i = 0; i < nElements; i++)
-                total += productes[i].Preu() * quantitat[i];
+                total += (productes[i].Preu_Sense_Iva + productes[i].Preu()) * quantitat[i];
 
             tiquet += "Total amb IVA inclòs: " + total + "\n";
 
