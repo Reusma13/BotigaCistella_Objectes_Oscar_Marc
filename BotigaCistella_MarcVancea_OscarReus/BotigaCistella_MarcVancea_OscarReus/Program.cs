@@ -593,7 +593,6 @@ namespace BotigaCistella_MarcVancea_OscarReus
         /// <param name="botiga">Pasamos la botiga como parametro</param>
         static void EscriureCSV(Botiga botiga)
         {
-            int cont = 0;
             if (botiga.Producte is not null)
             {
                 string[] lineas = File.ReadAllLines("persistencia.csv");
@@ -609,10 +608,9 @@ namespace BotigaCistella_MarcVancea_OscarReus
 
                     for (int i = 0; i < botiga.NElem; i++)
                     {
-                        if (!ExisteProducteEnCSV(botiga.Producte[i].Nom)) // Comprueba si el nombre del producto esta en el CSDV y si no esta lo añade, si lo estav manda un mensaje conforme no acepta duplicados.
+                        if (!ExisteProducteEnCSV(botiga.Producte[i].Nom)) // Comprueba si el nombre del producto esta en el CSV y si no esta lo añade, si lo estav manda un mensaje conforme no acepta duplicados.
                         {
                             nuevasLineas[indice + 1 + i] = $"{botiga.Producte[i].Nom}; {botiga.Producte[i].Preu_Sense_Iva}; {botiga.Producte[i].Preu_Sense_Iva + botiga.Producte[i].Preu()}; {botiga.Producte[i].Quantitat}";
-                            cont++;
                         }
                         else
                             Console.WriteLine("Producto existente. No acepto duplicados.");
